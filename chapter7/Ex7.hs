@@ -2,7 +2,8 @@
 
 module Ex7 where
 
-import Test.QuickCheck
+import           Data.Char
+import           Test.QuickCheck
 
 -- 1.
 
@@ -73,14 +74,51 @@ prop_myCurry :: Eq c => Fun (a, b) c -> a -> b -> Bool
 prop_myCurry (Fn f) a b = (myCurry f) a b == (curry f) a b
 
 myUncurry :: (a -> b -> c) -> ((a, b) -> c)
-myUncurry f = \(a, b) -> f a b 
+myUncurry f = \(a, b) -> f a b
 
 --prop_myUncurry :: Eq c => Fun (a, b) c -> (a, b) -> Bool
 --prop_myUncurry (Fn f) (a, b) = (myUncurry f) (a, b) == (uncurry f) (a, b)
 
 -- 6.
 
+unfold :: (a -> Bool) -> (a -> b) -> (a -> a) -> a -> [b]
+unfold p h t x | p x = []
+               | otherwise = h x : unfold p h t (t x)
 
+type Bit = Int
+
+int2bin :: Int -> [Bit]
+int2bin = unfold (== 0) (`mod` 2) (`div` 2)
+
+chop8 :: [Bit] -> [[Bit]]
+chop8 = unfold null (take 8) (drop 8)
+
+mapU :: (a -> b) -> [a] -> [b]
+mapU f = unfold null (f . head) tail
+
+iterateU :: (a -> a) -> a -> [a]
+iterateU f = unfold (const False) id f
+
+-- 7 & 8. See CheckedBinaryStringTransmitter.hs
+
+-- 9.
+
+altMap :: (a -> b) -> (a -> b) -> [a] -> [b]
+altMap _ _  [] = []
+altMap f _ [x] = [f x]
+altMap f g (x : y : zs) = f x : g y : altMap f g zs
+
+-- 10.
+
+luhnDouble :: Int -> Int
+luhnDouble d = if s > 9 then s - 9 else s
+  where
+    s = d * 2
+
+luhn :: [Int] -> Bool
+luhn ns = total `mod` 10 == 0
+  where
+    total = sum . altMap luhnDouble id $ ns
 
 return []
 main = $forAllProperties (quickCheckWithResult (stdArgs { maxSuccess = 1000 }))
