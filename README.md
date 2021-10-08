@@ -28,7 +28,7 @@ Learning Haskell from Graham Hutton's book, "Programming in Haskell" (2nd Editio
 -- [ ] Exercise 11
 -- [ ] Chapter 12 
 -- [X] Exercise 12
--- [ ] Chapter 13 
+-- [X] Chapter 13 
 -- [ ] Exercise 13
 -- [ ] Chapter 14 
 -- [ ] Exercise 14
