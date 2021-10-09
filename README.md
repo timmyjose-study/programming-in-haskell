@@ -30,9 +30,9 @@ Learning Haskell from Graham Hutton's book, "Programming in Haskell" (2nd Editio
 -- [X] Exercise 12
 -- [X] Chapter 13 
 -- [ ] Exercise 13
--- [ ] Chapter 14 
+-- [X] Chapter 14 
 -- [ ] Exercise 14
--- [ ] Chapter 15 
+-- [X] Chapter 15 
 -- [ ] Exercise 15
 -- [ ] Chapter 16 
 -- [ ] Exercise 16
