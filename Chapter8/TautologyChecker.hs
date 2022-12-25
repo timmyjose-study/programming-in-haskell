@@ -1,1 +1,0 @@
-module TautologyChecker where
